@@ -36,6 +36,15 @@ describe('lexer', function() {
                     valid: '<number> <ref>',
                     invalid: '<foo>'
                 },
+                atrules: {
+                    name: {
+                        descriptors: {
+                            ref: '<string>',
+                            valid: '<number> <ref>',
+                            invalid: '<foo>'
+                        }
+                    }
+                },
                 properties: {
                     ref: '<valid>',
                     valid: '<ident> <\'ref\'>',
@@ -45,6 +54,11 @@ describe('lexer', function() {
         });
 
         assert.deepEqual(customSyntax.lexer.validate(), {
+            atrules: {
+                name: [
+                    'invalid'
+                ]
+            },
             types: [
                 'invalid'
             ],
@@ -65,6 +79,13 @@ describe('lexer', function() {
                 types: {
                     foo: '<number>'
                 },
+                atrules: {
+                    test: {
+                        descriptors: {
+                            descriptor: '<foo>#'
+                        }
+                    }
+                },
                 properties: {
                     test: '<foo>+'
                 }
@@ -75,6 +96,7 @@ describe('lexer', function() {
             assert.equal(syntax.lexer.validate(), null);
             assert(syntax.lexer.matchProperty('test', parseCss('1 2 3', { context: 'value' })) === null);
             assert(syntax.lexer.matchProperty('color', parseCss('red', { context: 'value' })));
+            assert(syntax.lexer.matchProperty('descriptor', parseCss('1, 2, 3', { context: 'value' }), 'test') === null);
         });
 
         it('custom syntax should be valid and correct', function() {
@@ -91,6 +113,10 @@ describe('lexer', function() {
                 return assign(prev, customSyntax.lexer.dump());
             });
 
+            assert.deepEqual(
+                recoverySyntax.lexer.dump(),
+                customSyntax.lexer.dump()
+            );
             assert.equal(recoverySyntax.lexer.validate(), null);
             assert(recoverySyntax.lexer.matchProperty('test', parseCss('1 2 3', { context: 'value' })));
         });

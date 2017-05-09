@@ -1,18 +1,12 @@
 var mdnProperties = require('./mdn-data-properties.json');
+var mdnAtrules = require('./mdn-data-at-rules.json');
 var mdnSyntaxes = require('./mdn-data-syntaxes.json');
 var patch = require('./patch.json');
 var data = {
     properties: {},
+    atrules: {},
     types: {}
 };
-
-function normalizeSyntax(syntax) {
-    return syntax
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&nbsp;/g, ' ')
-        .replace(/&amp;/g, '&');
-}
 
 // apply patch
 for (var key in patch.properties) {
@@ -37,11 +31,21 @@ for (var key in patch.syntaxes) {
 
 // normalize source mdnProperties syntaxes, since it uses html token
 for (var key in mdnProperties) {
-    data.properties[key] = normalizeSyntax(mdnProperties[key].syntax);
+    data.properties[key] = mdnProperties[key].syntax;
+}
+
+for (var atrule in mdnAtrules) {
+    data.atrules[atrule.substr(1)] = {
+        syntax: mdnAtrules[atrule].syntax,
+        descriptors: {}
+    };
+    for (var key in mdnAtrules[atrule].descriptors) {
+        data.atrules[atrule.substr(1)].descriptors[key] = mdnAtrules[atrule].descriptors[key].syntax;
+    }
 }
 
 for (var key in mdnSyntaxes) {
-    data.types[key] = normalizeSyntax(mdnSyntaxes[key]);
+    data.types[key] = mdnSyntaxes[key];
 }
 
 module.exports = data;
