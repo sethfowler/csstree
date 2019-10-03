@@ -2,6 +2,10 @@
      alt="CSSTree logo"
      src="https://cloud.githubusercontent.com/assets/270491/19243723/6f9136c6-8f21-11e6-82ac-eeeee4c6c452.png"/>
 
+# This is a temporary fork
+
+This fork contains changes to allow CSSTree to work in the browser under restrictive CSP policies. Please *do not* depend on this package; it will disappear as soon as the changes are upstreamed.
+
 # CSSTree
 
 [![NPM version](https://img.shields.io/npm/v/css-tree.svg)](https://www.npmjs.com/package/css-tree)

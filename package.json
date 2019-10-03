@@ -1,6 +1,6 @@
 {
-  "name": "css-tree",
-  "version": "1.0.0-alpha.34",
+  "name": "@sethfowler/css-tree",
+  "version": "1.0.0-alpha.35",
   "description": "CSSTree is a tool set to work with CSS, including fast detailed parser (string->AST), walker (AST traversal), generator (AST->string) and lexer (validation and matching) based on knowledge of spec and browser implementations",
   "keywords": [
     "css",
@@ -24,9 +24,9 @@
     }
   ],
   "license": "MIT",
-  "repository": "csstree/csstree",
+  "repository": "sethfowler/csstree",
   "bugs": {
-    "url": "https://github.com/csstree/csstree/issues"
+    "url": "https://github.com/sethfowler/csstree/issues"
   },
   "main": "./lib/index",
   "browser": {
